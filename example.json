@@ -1,0 +1,103 @@
+{
+    "quiz_answers":[
+        "Casual",
+        [25, 75]
+    ],
+    "wardrobe":[
+        {
+            "id":"1",
+            "name":"tshirt1",
+            "section":"Torso",
+            "type":"T-Shirt",
+            "tags": [
+                "Color:#FF0000",
+                "Professionalism:Casual"
+            ]
+        },
+        {
+            "id":"2",
+            "name":"tshirt2",
+            "section":"Torso",
+            "type":"T-Shirt",
+            "tags": [
+                "Color:#FFFFFF"
+            ]
+        },
+        {
+            "id":"3",
+            "name":"blazer1",
+            "section":"Torso",
+            "type":"Blazer",
+            "tags": [
+                "Color:#FF0000",
+                "Professionalism:Business"
+            ]
+        },
+        {
+            "id":"4",
+            "name":"khakis",
+            "section":"Legs",
+            "type":"Khakis",
+            "tags": [
+                "Color:#f5f5dc",
+                "Professionalism:Business"
+            ]
+        },
+        {
+            "id":"5",
+            "name":"jeans1",
+            "section":"Legs",
+            "type":"Jeans",
+            "tags": [
+                "Color:#000080"
+            ]
+        },
+        {
+            "id":"6",
+            "name":"jeans2",
+            "section":"Legs",
+            "type":"Jeans",
+            "tags": [
+                "Color:#ADD8E6"
+            ]
+        },
+        {
+            "id":"7",
+            "name":"hat1",
+            "section":"Head",
+            "type":"Hat",
+            "tags": [
+                "Color:#ADD8E6"
+            ]
+        }
+
+    ],
+    "user_profile":{
+        "skin_tone":"pale",
+        "undertones":"pink"
+    },
+    "outfits":[
+            {
+            "items": [
+                {
+                    "id":"2",
+                    "name":"tshirt2",
+                    "section":"Torso",
+                    "type":"T-Shirt",
+                    "tags": [
+                        "Color:#f0ead6"
+                    ]
+                },
+                {
+                    "id":"5",
+                    "name":"jeans1",
+                    "section":"Legs",
+                    "type":"Jeans",
+                    "tags": [
+                        "Color:#000080"
+                    ]
+                }
+            ]
+        }
+    ]
+}
