@@ -1,4 +1,4 @@
 Flask==0.12.2
-numpy==1.18.5rc1
+numpy==1.18.5
 psycopg2==2.8.5
 psycopg2-binary==2.8.5
