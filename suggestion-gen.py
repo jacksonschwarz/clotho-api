@@ -58,9 +58,10 @@ def suggest(outfits, rules, quiz_answers):
 
 example_data = read_example()
 combinations = create_combinations(example_data["wardrobe"])
+exampleOutfits = example_data["outfits"]
 outfits = create_outfits(combinations)
 
-suggestions = suggest(outfits, rules, example_data["quiz_answers"])
+suggestions = suggest(exampleOutfits, rules, example_data["quiz_answers"])
 for o in suggestions:
     print(o)
     print()

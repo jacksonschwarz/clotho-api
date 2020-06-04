@@ -1,7 +1,7 @@
 {
     "quiz_answers":[
         "Casual",
-        [25, 75]
+        [0, 90]
     ],
     "wardrobe":[
         {
@@ -85,6 +85,7 @@
                     "section":"Torso",
                     "type":"T-Shirt",
                     "tags": [
+                        "Professionalism:Casual",
                         "Color:#f0ead6"
                     ]
                 },
@@ -97,7 +98,60 @@
                         "Color:#000080"
                     ]
                 }
-            ]
+            ],
+            "score":0,
+            "passed_rules":[]
+        },
+        {
+            "items": [
+                {
+                    "id":"2",
+                    "name":"tshirt2",
+                    "section":"Torso",
+                    "type":"T-Shirt",
+                    "tags": [
+                        "Professionalism:Casual",
+                        "Color:#00FF00"
+                    ]
+                },
+                {
+                    "id":"5",
+                    "name":"jeans1",
+                    "section":"Legs",
+                    "type":"Jeans",
+                    "tags": [
+                        "Color:#32CD32"
+                    ]
+                }
+            ],
+            "score":0,
+            "passed_rules":[]
+        },
+        {
+            "items": [
+                {
+                    "id":"2",
+                    "name":"tshirt2",
+                    "section":"Torso",
+                    "type":"T-Shirt",
+                    "tags": [
+                        "Professionalism:Business",
+                        "Color:#00FF00"
+                    ]
+                },
+                {
+                    "id":"5",
+                    "name":"jeans1",
+                    "section":"Legs",
+                    "type":"Jeans",
+                    "tags": [
+                        "Color:#32CD32"
+                    ]
+                }
+            ],
+            "score":0,
+            "passed_rules":[]
         }
+        
     ]
 }
