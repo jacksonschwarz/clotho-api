@@ -6,7 +6,7 @@ if("PRODUCTION" in os.environ):
 else:
     DATABASE_URL = "postgresql://localhost"
 
-conn = psycopg2.connect(DATABASE_URL)
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 class DbHelper:
     __connection = None
