@@ -1,7 +1,8 @@
 import os
 import psycopg2
-from flask import Flask, request, jsonify
+from flask import Flask, request
 from WardrobeDAO import WardrobeDAO
+import json
 
 """
 Turns the tuple result into dicts for flask to convert to JSON objects. 
@@ -15,7 +16,7 @@ def translateWardrobe(result):
         "tags":result[4]
     }
 def translateWardrobeList(resultList):
-    return jsonify([translateWardrobe(row) for row in resultList])
+    return json.dumps([translateWardrobe(row) for row in resultList])
 
 app = Flask(__name__)
 
