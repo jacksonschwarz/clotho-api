@@ -7,6 +7,9 @@ This file is used for rule definition.
 Each function should take in an outfit(an array of objects) and keyword arguments (**kwargs)
 This is so each rule can be called in the array below with the same set of keyword arguments, but they can have different functionalities. 
 """
+"""
+Checks to see if an outfit fits the quiz answer regarding the desired level of professionalism. 
+"""
 def professionalism(outfit, **kwargs):
     
     answer = int(kwargs["answers"][0])
@@ -49,6 +52,9 @@ def _getColors(item):
         filtered = list(filter(lambda i: "Color" in i, tags))
         colors = list(map(lambda t: hex_to_hsluv(t.split(":")[1]), filtered))
         return colors
+"""
+How the hues of each individual outfit item contrast one another. 
+"""
 def hue_contrast_score(outfit, **kwargs):
     contrastRange = kwargs["answers"][1]
     tag = "Color"
@@ -56,29 +62,44 @@ def hue_contrast_score(outfit, **kwargs):
     colors = list(map(_getColors, items))
     #an array of hues based on the HSL colors
     hues = np.array([item[0] for sublist in colors for item in sublist])
-    print("Hues")
-    print(hues)
     hueCombos = list(itertools.combinations(hues, r=2))
-    print("Hue Combos")
-    print(hueCombos)
     colorDistance = np.array([abs(x[0] - x[1]) for x in hueCombos])
-    print("Color Distance")
-    print(colorDistance)
     #if the distance is close to 180, then the colors contrast. If the distance is close to 0, the colors are analogous. 
     #the ranges in the quiz questions should take into account that the scale is from 0-180.
     #since we are subtracting by 180 here, the lower number is better. 
     contrastScores = np.abs(colorDistance - 180)
-    print("Contrast Scores")
-    print(contrastScores)
     for score in contrastScores:
-        if(score > contrastRange[0] and score < contrastRange[1]):
+        if(score >= contrastRange[0] and score <= contrastRange[1]):
             outfit["score"] += 1
             outfit["passed_rules"].append("HUE_CONTRAST")
             break
+"""
+How the lights of each infividual object contrast with one another
+"""
+def light_contrast(outfit, **kwargs):
+    lightRange = kwargs["answers"][2]
+    items = outfit["items"]
+    colors = list(map(_getColors, items))
+    lights = np.array([item[2] for sublist in colors for item in sublist])
+    print(lights)
+    lightCombos = list(itertools.combinations(lights, r=2))
+    lightDistance = np.array([abs(x[0] - x[1]) for x in lightCombos])
 
+"""
+How light an overall outfit is
+"""
+def light_score(outfit, **kwargs):
+    lightRange = kwargs["answers"][2]
+    items = outfit["items"]
+    colors = list(map(_getColors, items))
+    lights = np.array([item[2] for sublist in colors for item in sublist])
+    lightScore = np.sum(lights) / len(items)
+    if (lightScore >= lightRange[0] and lightScore <= lightRange[1]):
+        outfit["score"] += 1
+        outfit["passed_rules"].append("LIGHT_SCORE")
 
 #Pattern rule has to be the last in the list because it X 0 multiplier
-rules = [professionalism, hue_contrast_score]
+rules = [professionalism, hue_contrast_score, light_score]
 
 def read_example():
     data=[]
@@ -86,12 +107,13 @@ def read_example():
         data=json.load(f)
     return data
 
-example_data = read_example()
-outfits = example_data["outfits"]
-quiz_answers = example_data["quiz_answers"]
-for o in outfits:
-    print()
-    professionalism(o, answers=quiz_answers)
-for o in outfits:
-    print()
-    print(o)
+# example_data = read_example()
+# outfits = example_data["outfits"]
+# quiz_answers = example_data["quiz_answers"]
+
+# for o in outfits:
+#     print()
+#     light_score(o, answers=quiz_answers)
+# # for o in outfits:
+# #     print()
+# #     print(o)

@@ -46,8 +46,6 @@ def create_outfits(outfitCombos):
 Scoring
 Go through all of the rules and determine the scores of each suggestion object
 """
-def keyFunc(e):
-    return e["score"]
 def suggest(outfits, rules, quiz_answers):
     for outfit in outfits:
         for rule in rules:
