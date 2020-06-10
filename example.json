@@ -1,6 +1,6 @@
 {
     "quiz_answers":[
-        "Casual",
+        "1",
         [0, 90]
     ],
     "wardrobe":[
@@ -11,7 +11,7 @@
             "type":"T-Shirt",
             "tags": [
                 "Color:#FF0000",
-                "Professionalism:Casual"
+                "Professionalism:1"
             ]
         },
         {
@@ -20,7 +20,8 @@
             "section":"Torso",
             "type":"T-Shirt",
             "tags": [
-                "Color:#FFFFFF"
+                "Color:#FFFFFF",
+                "Professionalism:1"
             ]
         },
         {
@@ -30,7 +31,7 @@
             "type":"Blazer",
             "tags": [
                 "Color:#FF0000",
-                "Professionalism:Business"
+                "Professionalism:3"
             ]
         },
         {
@@ -40,7 +41,7 @@
             "type":"Khakis",
             "tags": [
                 "Color:#f5f5dc",
-                "Professionalism:Business"
+                "Professionalism:3"
             ]
         },
         {
@@ -49,7 +50,8 @@
             "section":"Legs",
             "type":"Jeans",
             "tags": [
-                "Color:#000080"
+                "Color:#000080",
+                "Professionalism:1"
             ]
         },
         {
@@ -58,7 +60,8 @@
             "section":"Legs",
             "type":"Jeans",
             "tags": [
-                "Color:#ADD8E6"
+                "Color:#ADD8E6",
+                "Professionalism:1"
             ]
         },
         {
@@ -67,7 +70,8 @@
             "section":"Head",
             "type":"Hat",
             "tags": [
-                "Color:#ADD8E6"
+                "Color:#ADD8E6",
+                "Professionalism:1"
             ]
         }
 
@@ -85,7 +89,7 @@
                     "section":"Torso",
                     "type":"T-Shirt",
                     "tags": [
-                        "Professionalism:Casual",
+                        "Professionalism:3",
                         "Color:#f0ead6"
                     ]
                 },
@@ -95,6 +99,7 @@
                     "section":"Legs",
                     "type":"Jeans",
                     "tags": [
+                        "Professionalism:3",
                         "Color:#000080"
                     ]
                 }
@@ -110,7 +115,7 @@
                     "section":"Torso",
                     "type":"T-Shirt",
                     "tags": [
-                        "Professionalism:Casual",
+                        "Professionalism:1",
                         "Color:#00FF00"
                     ]
                 },
@@ -120,6 +125,7 @@
                     "section":"Legs",
                     "type":"Jeans",
                     "tags": [
+                        "Professionalism:2",
                         "Color:#32CD32"
                     ]
                 }
@@ -135,7 +141,7 @@
                     "section":"Torso",
                     "type":"T-Shirt",
                     "tags": [
-                        "Professionalism:Business",
+                        "Professionalism:1",
                         "Color:#00FF00"
                     ]
                 },
@@ -145,6 +151,7 @@
                     "section":"Legs",
                     "type":"Jeans",
                     "tags": [
+                        "Professionalism:1",
                         "Color:#32CD32"
                     ]
                 }

@@ -8,16 +8,40 @@ Each function should take in an outfit(an array of objects) and keyword argument
 This is so each rule can be called in the array below with the same set of keyword arguments, but they can have different functionalities. 
 """
 def professionalism(outfit, **kwargs):
-    answer = kwargs["answers"][0]
+    
+    answer = int(kwargs["answers"][0])
+
     tag = "Professionalism"
-    #first, filter out all items without a professionalism tag.
     items = outfit["items"]
-    filteredItems = list(filter(lambda i: tag in "".join(i["tags"]),items))
-    answerOnly = list(filter(lambda i: answer in "".join(i["tags"]), filteredItems))
-    #this means that the amount of clothes that have Professionalism are the same that contain the answer, meaning the rule passes.
-    if(len(filteredItems) > 0) and (len(filteredItems) == len(answerOnly)):
-        outfit["score"] = outfit["score"] + 1
+
+    # The max possible distance of formality is 2, since the range of formality is currently 1-3
+    maxDistance=2
+    # Used to scale the final score. With a max distance of 2 and scale factor of 2, the final score will be in the range of 0.0-1.0
+    scaleFactor=2
+
+    # The minimum value of the formality score to pass the rule. This rule will modify the score regardless if the rule is passed or not,
+    # but it does affect whether or not the rule is added to the outfit's list of passed rules
+    rulePassingValue=.50
+
+    # Creates list composed of the formalities of each item in the outfit by checking for each Professionalism tag. 
+    # Could use something better than for loops (I don't have a great grasp on Lambda functions and parsing JSON)
+    formalityValues=[]
+    for item in items:
+        for itemTag in item["tags"]:
+            if tag in itemTag:
+                formalityValues.append(int(itemTag[-1:]))
+
+    # Calculates the distance between the total formality score of the outfit items and the formality level specified by the user
+    # by subtracting the formality quiz question answer from the mean of each item's formality level.
+    # Then, this is subtracted from the maximum possible distance of formality and divided by the scaling factor (specified above).
+    outfitFormalityScore=(maxDistance-(np.abs(np.mean(formalityValues)-answer)))/scaleFactor
+
+    outfit["score"]=outfit["score"]+outfitFormalityScore
+
+    # Outfit passes rule if the formality score is at least the value specified above
+    if outfitFormalityScore>=rulePassingValue:
         outfit["passed_rules"].append("PROFESSIONALISM")
+
 #gets the HSL values of the item's color(s).
 def _getColors(item):
     if(len(item["tags"]) > 0):
@@ -56,18 +80,18 @@ def hue_contrast_score(outfit, **kwargs):
 #Pattern rule has to be the last in the list because it X 0 multiplier
 rules = [professionalism, hue_contrast_score]
 
-# def read_example():
-#     data=[]
-#     with open("./example.json") as f:
-#         data=json.load(f)
-#     return data
+def read_example():
+    data=[]
+    with open("./example.json") as f:
+        data=json.load(f)
+    return data
 
-# example_data = read_example()
-# outfits = example_data["outfits"]
-# quiz_answers = example_data["quiz_answers"]
-# for o in outfits:
-#     print()
-#     hue_contrast_score(o, answers=quiz_answers)
-# for o in outfits:
-#     print()
-#     print(o)
+example_data = read_example()
+outfits = example_data["outfits"]
+quiz_answers = example_data["quiz_answers"]
+for o in outfits:
+    print()
+    professionalism(o, answers=quiz_answers)
+for o in outfits:
+    print()
+    print(o)
