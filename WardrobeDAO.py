@@ -24,7 +24,7 @@ class WardrobeDAO:
     Gets a wardrobe item, or a list of wardrobe items,  via the item's type.
     """
     def getItemByType(self, clothingType):
-        return self.__db.quereadry("SELECT * from wardrobe WHERE type = %s", (clothingType,)).fetchall()
+        return self.__db.read("SELECT * from wardrobe WHERE type = %s", (clothingType,)).fetchall()
     """
     Gets a wardrobe item, or a list of wardrobe items, via the item's section
     """
@@ -35,7 +35,7 @@ class WardrobeDAO:
     """
     def getItemByAnyTags(self, tags):
         arrayStatement = "ARRAY%s" % str(tags)
-        return self.__db.query("SELECT * from wardrobe WHERE tags @> %s" % arrayStatement, None).fetchall()
+        return self.__db.read("SELECT * from wardrobe WHERE tags @> %s" % arrayStatement, None).fetchall()
 
     """
     Adds an item with the given specification to the wardrobe database.
