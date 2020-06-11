@@ -46,7 +46,9 @@ def create_outfits(outfitCombos):
 Scoring
 Go through all of the rules and determine the scores of each suggestion object
 """
-def suggest(outfits, rules, quiz_answers):
+def generate_suggestion(wardrobe, quiz_answers):
+    combinations = create_combinations(wardrobe)
+    outfits = create_outfits(combinations)
     for outfit in outfits:
         for rule in rules:
             rule(outfit, answers = quiz_answers)
@@ -54,12 +56,12 @@ def suggest(outfits, rules, quiz_answers):
     return list(result)
 
 
-example_data = read_example()
-combinations = create_combinations(example_data["wardrobe"])
-exampleOutfits = example_data["outfits"]
-outfits = create_outfits(combinations)
+# example_data = read_example()
+# # combinations = create_combinations(example_data["wardrobe"])
+# # exampleOutfits = example_data["outfits"]
+# # outfits = create_outfits(combinations)
 
-suggestions = suggest(exampleOutfits, rules, example_data["quiz_answers"])
-for o in suggestions:
-    print(o)
-    print()
+# suggestions = suggest(example_data["wardrobe"], example_data["quiz_answers"])
+# for o in suggestions:
+#     print(o)
+#     print()

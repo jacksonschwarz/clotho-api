@@ -81,7 +81,6 @@ def light_contrast(outfit, **kwargs):
     items = outfit["items"]
     colors = list(map(_getColors, items))
     lights = np.array([item[2] for sublist in colors for item in sublist])
-    print(lights)
     lightCombos = list(itertools.combinations(lights, r=2))
     lightDistance = np.array([abs(x[0] - x[1]) for x in lightCombos])
 

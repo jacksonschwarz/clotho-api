@@ -1,7 +1,8 @@
 {
     "quiz_answers":[
         "1",
-        [0, 90]
+        [0, 90],
+        [0, 51]
     ],
     "wardrobe":[
         {
@@ -63,18 +64,7 @@
                 "Color:#ADD8E6",
                 "Professionalism:1"
             ]
-        },
-        {
-            "id":"7",
-            "name":"hat1",
-            "section":"Head",
-            "type":"Hat",
-            "tags": [
-                "Color:#ADD8E6",
-                "Professionalism:1"
-            ]
         }
-
     ],
     "user_profile":{
         "skin_tone":"pale",
