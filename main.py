@@ -165,7 +165,7 @@ def removeItem():
 SUGGESTION ROUTES
 """
 
-@app.route("/suggest")
+@app.route("/suggest", methods=["POST"])
 def suggest():
     userId = request.get_json()["id"]
     wardrobe = [translateWardrobe(x) for x in __wdao.getWardrobe(userId)]
