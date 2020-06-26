@@ -5,10 +5,11 @@ import simplejson as json
 
 from WardrobeDAO import WardrobeDAO
 from OutfitDAO import OutfitDAO
+from UserDAO import UserDAO
 from SuggestionGen import generate_suggestion
 
 """
-Turns the tuple result into dicts for flask to convert to JSON objects. 
+Turns the tuple result into dicts to convert to JSON objects. 
 """
 def translateWardrobe(result):
     return {
@@ -21,6 +22,9 @@ def translateWardrobe(result):
 def translateWardrobeList(resultList):
     return json.dumps([translateWardrobe(row) for row in resultList])
 
+"""
+Takes the tuple result from the Database into dicts to convert into JSON objects
+"""
 def translateOutfit(result):
     return {
         "id":result[3],
@@ -32,10 +36,25 @@ def translateOutfit(result):
     }
 def translateOutfitList(resultList):
     return json.dumps([translateOutfit(row) for row in resultList], use_decimal=True, default=str)
+
+def translateUserProfile(result):
+    return {
+        "id":result[0],
+        "username":result[1],
+        "email_address":result[2],
+        "password":result[3],
+        "complexion":result[4],
+        "undertones":result[5],
+        "wardrobe":result[6]
+    }
+
+def translateUserProfileList(resultList):
+    return json.dumps([translateUserProfile(row) for row in resultList])
 app = Flask(__name__)
 
 __wdao = WardrobeDAO()
 __odao = OutfitDAO()
+__udao = UserDAO()
 @app.route("/")
 def index():
     return "Hello Clotho!"
@@ -235,4 +254,45 @@ def removeOutfit():
     else:
         return str(result)
 
-        
+
+"""
+USER PROFILE ROUTES
+"""
+
+@app.route("/users/getUserById")
+def getUserById():
+    userId = request.args.get("userId")
+    result = __udao.getUserById(userId)
+    return translateUserProfileList(result)
+@app.route("/users/login", methods=["POST"])
+def verify():
+    credentials = request.get_json()
+    username = credentials["username"]
+    password = credentials["password"]
+    result = __udao.getUserByLogin(username, password)
+    return translateUserProfileList(result)
+@app.route("/users/addUser", methods=["POST"])
+def addUser():
+    userDef = request.get_json()
+    result = __udao.addUser(userDef)
+    if(result == 1):
+        return "Successfully added user"
+    else:
+        return str(result)
+@app.route("/users/updateUser", methods=["POST"])
+def updateUser():
+    userId = request.get_json()["userId"]
+    userDef = request.get_json()["userDef"]
+    result = __udao.updateUser(userId, userDef)
+    if(result == 1):
+        return "Successfully updated user with the id: " + userId
+    else:
+        return str(result)
+@app.route("/users/removeUser", methods=["DELETE"])
+def removeUser():
+    userId = request.args.get("userId")
+    result = __udao.removeUser(userId)
+    if(result == 1):
+        return "Removed user with the id: " + userId
+    else:
+        return str(result)

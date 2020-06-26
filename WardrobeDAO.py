@@ -8,7 +8,7 @@ class WardrobeDAO:
     Gets the wardrobe of a specified user given the user ID
     """
     def getWardrobe(self, userId):
-        return self.__db.read("select * from wardrobe where ARRAY[id]::uuid[] <@ (select wardrobe from users where id = %s)", (userId,)).fetchall()
+        return self.__db.read("select * from wardrobe where ARRAY[id]::uuid[] <@ (select wardrobe from user_profiles where id = %s)", (userId,)).fetchall()
     """
     Gets a wardrobe item via the item's UUID
     """
