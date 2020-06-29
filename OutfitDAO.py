@@ -17,8 +17,8 @@ class OutfitDAO:
     """
     Gets all outfits from all users since a certain timestamp
     """
-    def getOutfitsSinceTimestamp(self, timestamp):
-        return self.__db.read("select * from outfits where extract(epoch from time_created) > %s::int", (timestamp,))
+    def getOutfitsSinceTimestamp(self, timestamp, ownerId):
+        return self.__db.read("select * from outfits where extract(epoch from time_created) > %s::int and owner = %s::uuid", (timestamp,ownerId))
     """
     Gets the user's historical outfit record. Takes in an ownerID for the user, and a timestamp for the range time for the history
     """

@@ -40,10 +40,13 @@ class WardrobeDAO:
     """
     Adds an item with the given specification to the wardrobe database.
     """
-    def addItem(self, itemObject):
+    def addItem(self, payload):
         try:
-            self.__db.write("INSERT INTO wardrobe (name, section, type, tags) VALUES(%s, %s, %s, %s)", 
-            (itemObject["name"], itemObject["section"], itemObject["type"], itemObject["tags"]))
+            itemObject = payload["item"]
+            self.__db.write("INSERT INTO wardrobe (id, name, section, type, tags) VALUES(%s, %s, %s, %s, %s)", 
+            (itemObject["id"], itemObject["name"], itemObject["section"], itemObject["type"], itemObject["tags"]))
+            userId = payload["userId"]
+            self.__db.write("UPDATE user_profiles SET wardrobe = wardrobe || %s::uuid WHERE id = %s", (itemObject["id"], userId))
             return 1
         except Exception as error:
             return error

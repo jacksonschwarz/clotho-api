@@ -122,10 +122,10 @@ Returns: A success message if it succeeds, an error message if it does not.
 """
 @app.route("/wardrobe/addItem", methods=['POST'])
 def addItem():
-    itemObject = request.get_json()
-    result = __wdao.addItem(itemObject)
+    payload = request.get_json()
+    result = __wdao.addItem(payload)
     if (result == 1):
-        return "Added object " + json.dumps(itemObject)
+        return "Added object " + json.dumps(payload["item"]) + " to the user with the ID " + payload["userId"]
     else:
         return str(result)
 """
@@ -173,7 +173,7 @@ Returns: A Confirmation message when the item is removed.
 """
 @app.route("/wardrobe/removeItem", methods=["DELETE"])
 def removeItem():
-    itemId = request.get_json()["id"]
+    itemId = request.args.get("itemId")
     result = __wdao.removeItem(itemId)
     if (result == 1):
         return "Removed item with the id: " + itemId
@@ -220,7 +220,8 @@ Returns: All outfits created since that timestamp
 @app.route("/outfits/getOutfitsSinceTimestamp")
 def getOutfitsSinceTimestamp():
     timestamp = request.args.get("timestamp")
-    results = __odao.getOutfitsSinceTimestamp(timestamp)
+    ownerId = request.args.get("ownerId")
+    results = __odao.getOutfitsSinceTimestamp(timestamp, ownerId)
     return translateOutfitList(results)
 @app.route("/outfits/getUserRecord")
 def getUserRecord():
