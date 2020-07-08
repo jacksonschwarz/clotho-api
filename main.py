@@ -192,6 +192,13 @@ def suggest():
     suggestions = generate_suggestion(wardrobe, quiz_answers)
     return json.dumps(suggestions[0:2])
 
+@app.route("/suggestAll", methods=["POST"])
+def suggestAll():
+    userId = request.get_json()["id"]
+    wardrobe = [translateWardrobe(x) for x in __wdao.getWardrobe(userId)]
+    quiz_answers = request.get_json()["quiz_answers"]
+    suggestions = generate_suggestion(wardrobe, quiz_answers)
+    return json.dumps(suggestions)
 """
 OUTFIT ROUTES
 """
