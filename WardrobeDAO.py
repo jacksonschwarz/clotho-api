@@ -14,7 +14,7 @@ class WardrobeDAO:
     """
     def getItemById(self, id):
         return self.__db.read("SELECT * FROM wardrobe WHERE id = %s", (id,)).fetchall()
-    
+
     """
     Gets a wardrobe item, or a list of wardrobe items, via the item's name.
     """

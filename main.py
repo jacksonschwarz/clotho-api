@@ -8,48 +8,7 @@ from OutfitDAO import OutfitDAO
 from UserDAO import UserDAO
 from SuggestionGen import generate_suggestion
 
-"""
-Turns the tuple result into dicts to convert to JSON objects. 
-"""
-def translateWardrobe(result):
-    return {
-        "id":result[0],
-        "name":result[1],
-        "section":result[2],
-        "type":result[3],
-        "tags":result[4]
-    }
-def translateWardrobeList(resultList):
-    return json.dumps([translateWardrobe(row) for row in resultList])
-
-"""
-Takes the tuple result from the Database into dicts to convert into JSON objects
-"""
-def translateOutfit(result):
-    return {
-        "id":result[3],
-        "items":result[0],
-        "score":result[1],
-        "passed_rules":result[2],
-        "owner":result[4],
-        "time_created":result[5]
-    }
-def translateOutfitList(resultList):
-    return json.dumps([translateOutfit(row) for row in resultList], use_decimal=True, default=str)
-
-def translateUserProfile(result):
-    return {
-        "id":result[0],
-        "username":result[1],
-        "email_address":result[2],
-        "password":result[3],
-        "complexion":result[4],
-        "undertones":result[5],
-        "wardrobe":result[6]
-    }
-
-def translateUserProfileList(resultList):
-    return json.dumps([translateUserProfile(row) for row in resultList])
+from utils import translateOutfitList, translateUserProfileList, translateWardrobe, translateWardrobeList
 app = Flask(__name__)
 
 __wdao = WardrobeDAO()
@@ -219,7 +178,7 @@ Returns: All outfits "owned" by that user.
 def getOutfitsByOwner():
     ownerID = request.args.get("ownerID")
     results = __odao.getOutfitsByOwner(ownerID)
-    return translateOutfitList(results)
+    return json.dumps(results, default=str)
 """
 Parameters: A timestamp in unix epoch time
 Returns: All outfits created since that timestamp

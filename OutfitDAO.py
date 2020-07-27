@@ -1,5 +1,7 @@
 from DbHelper import DbHelper
 
+from utils import translateWardrobeListObj, translateOutfitListObj
+
 class OutfitDAO:
     __db = None
     def __init__(self):
@@ -13,7 +15,16 @@ class OutfitDAO:
     Gets all outfits owned by a specific user
     """
     def getOutfitsByOwner(self, ownerId):
-        return self.__db.read("SELECT * FROM outfits WHERE owner = %s", (ownerId,))
+        items = self.__db.read("select * from wardrobe where ARRAY[id]::uuid[] <@ (select items from outfits where owner = '63d2ed24-bbce-4fad-8a19-5b53c2def623');", []).fetchall()
+        translatedItems = translateWardrobeListObj(items)
+        outfits = self.__db.read("SELECT * FROM outfits WHERE owner = %s", (ownerId,)).fetchall()
+        translatedOutfits = translateOutfitListObj(outfits)
+        for outfit in translatedOutfits:
+            outfit["items"] = []
+            for item in translatedItems:
+                outfit["items"].append(item)
+        return translatedOutfits
+
     """
     Gets all outfits from all users since a certain timestamp
     """
