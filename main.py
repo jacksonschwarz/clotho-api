@@ -182,8 +182,9 @@ Returns: All outfits "owned" by that user.
 @app.route("/outfits/getOutfitsByOwner")
 def getOutfitsByOwner():
     ownerID = request.args.get("ownerID")
-    results = __odao.getOutfitsByOwner(ownerID)
+    results = __odao.getOutfitsByOwner(ownerID).fetchall()
     return json.dumps(results, default=str)
+
 """
 Parameters: A timestamp in unix epoch time
 Returns: All outfits created since that timestamp
