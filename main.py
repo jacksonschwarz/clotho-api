@@ -183,7 +183,7 @@ Returns: All outfits "owned" by that user.
 def getOutfitsByOwner():
     ownerID = request.args.get("ownerID")
     results = __odao.getOutfitsByOwner(ownerID).fetchall()
-    return json.dumps(results, default=str)
+    return translateOutfitList(results)
 
 """
 Parameters: A timestamp in unix epoch time
