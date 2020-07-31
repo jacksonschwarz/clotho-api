@@ -38,6 +38,11 @@ def getItemById():
     itemID=request.args.get("id")
     results = __wdao.getItemById(itemID)
     return translateWardrobeList(results)
+@app.route("/wardrobe/getItemsByIdList", methods=["POST"])
+def getItemsByIdList():
+    itemIds = request.get_json()["idList"]
+    results = __wdao.getItemsByIdList(itemIds)
+    return translateWardrobeList(results)
 """
 Parameters: Wardrobe Item Name
 Returns: The wardrobe item corresponding to that name (may not be unique).
