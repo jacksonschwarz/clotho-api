@@ -15,7 +15,7 @@ class OutfitDAO:
     Gets all outfits owned by a specific user
     """
     def getOutfitsByOwner(self, ownerId):
-        items = self.__db.read("select * from wardrobe where ARRAY[id]::uuid[] <@ (select items from outfits where owner = $1);", [ownerId]).fetchall()
+        items = self.__db.read("select * from wardrobe where ARRAY[id]::uuid[] <@ (select items from outfits where owner = %s);", [ownerId]).fetchall()
         translatedItems = translateWardrobeListObj(items)
         outfits = self.__db.read("SELECT * FROM outfits WHERE owner = %s", (ownerId,)).fetchall()
         translatedOutfits = translateOutfitListObj(outfits)
