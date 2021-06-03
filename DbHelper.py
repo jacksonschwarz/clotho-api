@@ -2,7 +2,7 @@ import os
 import psycopg2
 
 if("PRODUCTION" in os.environ):
-    DATABASE_URL = "postgres://zvijakwhyhjzxv:bf955510ab3b3d00554e8b0975b7a0373edb5eb7e674e44639853dcfd5142add@ec2-50-17-90-177.compute-1.amazonaws.com:5432/d5ah5ooh0gjvsi"
+    DATABASE_URL = "{POSTGRES_SQL_FILE}"
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 else:
     DATABASE_URL = "postgresql://localhost"
